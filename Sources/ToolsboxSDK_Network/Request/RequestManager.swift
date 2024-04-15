@@ -7,7 +7,6 @@
 
 import Foundation
 import os
-import Common
 
 public typealias RequestHeaders = [String: String]
 public typealias NetworkResponse = (statusCode: Int, data: Data?)
