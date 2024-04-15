@@ -11,8 +11,10 @@ let package = Package(
 	products: [
 		// Products define the executables and libraries a package produces, making them visible to other packages.
 		.library(
-			name: "ToolsboxSDK",
-			targets: ["ToolsboxSDK"]
+			name: "ToolsboxSDK.Network",
+			targets: [
+				"Network"
+			]
 		)
 	],
 	dependencies: [
@@ -22,14 +24,29 @@ let package = Package(
 		// Targets are the basic building blocks of a package, defining a module or a test suite.
 		// Targets can depend on other targets in this package and products from dependencies.
 		.target(
-			name: "ToolsboxSDK",
+			name: "Common",
 			plugins: [
 				.plugin(name: "SwiftLintPlugin", package: "SwiftLint")
 			]
 		),
-		.testTarget(
-			name: "ToolsboxSDKTests",
-			dependencies: ["ToolsboxSDK"]
+		.target(
+			name: "Core",
+			dependencies: [
+				"Common"
+			],
+			plugins: [
+				.plugin(name: "SwiftLintPlugin", package: "SwiftLint")
+			]
+		),
+		.target(
+			name: "Network",
+			dependencies: [
+				"Common",
+				"Core"
+			],
+			plugins: [
+				.plugin(name: "SwiftLintPlugin", package: "SwiftLint")
+			]
 		)
 	]
 )
