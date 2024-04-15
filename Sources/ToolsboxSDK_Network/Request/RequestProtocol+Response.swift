@@ -7,8 +7,7 @@
 
 import Foundation
 import os
-import Common
-import Core
+import ToolsboxSDK_Core
 
 public extension RequestProtocol {
 	

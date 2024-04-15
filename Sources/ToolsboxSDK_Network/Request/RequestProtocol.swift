@@ -7,7 +7,6 @@
 
 import Foundation
 import os
-import Common
 
 public protocol RequestProtocol: CustomStringConvertible {
 	
