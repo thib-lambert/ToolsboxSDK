@@ -109,6 +109,10 @@ class RequestManager {
 			request.setValue("application/json", forHTTPHeaderField: "Content-Type")
 			request.httpBody = self.buildJSONBodyData(for: _request)
 			
+		case .custom(let encode, let body):
+			request.setValue(encode, forHTTPHeaderField: "Content-Type")
+			request.httpBody = body
+			
 		default:
 			break
 		}
