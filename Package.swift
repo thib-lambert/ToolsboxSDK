@@ -12,9 +12,7 @@ let package = Package(
 		// Products define the executables and libraries a package produces, making them visible to other packages.
 		.library(
 			name: "ToolsboxSDK_Network",
-			targets: [
-				"ToolsboxSDK_Network"
-			]
+			targets: [ "ToolsboxSDK_Network"]
 		)
 	],
 	dependencies: [
@@ -35,6 +33,7 @@ let package = Package(
 			dependencies: [
 				"ToolsboxSDK_Core"
 			],
+			resources: [.copy("Resources/PrivacyInfo.xcprivacy")],
 			plugins: [
 				.plugin(name: "SwiftLintPlugin", package: "SwiftLint")
 			]
