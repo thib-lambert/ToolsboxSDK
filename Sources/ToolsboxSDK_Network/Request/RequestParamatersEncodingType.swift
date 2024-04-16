@@ -10,6 +10,7 @@ import Foundation
 public enum RequestParamatersEncodingType {
 	
 	case json,
-		 url
+		 url,
+		 formURLEncoded
 	case custom(encode: String, body: Data?)
 }
