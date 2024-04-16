@@ -11,4 +11,5 @@ public enum RequestParamatersEncodingType {
 	
 	case json,
 		 url
+	case custom(encode: String, body: Data?)
 }
