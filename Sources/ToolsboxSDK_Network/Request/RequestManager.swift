@@ -81,14 +81,54 @@ class RequestManager {
 				do {
 					return try JSONSerialization.data(withJSONObject: finalBodyParameters, options: [])
 				} catch {
-					Logger.network.fault("\(RequestError.url): \(error)")
+					Logger.network.fault("\(RequestError.json): \(error)")
 				}
 			} else {
-				Logger.network.fault("\(RequestError.url)")
+				Logger.network.fault("\(RequestError.json)")
 			}
 		}
 		
 		return nil
+	}
+	
+	private func buildFormEncodedBodyData(for request: RequestProtocol) -> Data? {
+		var finalBodyParameters: RequestParameters = request.authentification?.bodyParameters ?? [:]
+		
+		// Parameters
+		request.parameters?.forEach {
+			finalBodyParameters[$0.key] = $0.value
+		}
+		
+		if !finalBodyParameters.isEmpty {
+			if JSONSerialization.isValidJSONObject(finalBodyParameters) {
+				var requestBody = URLComponents()
+				requestBody.queryItems = finalBodyParameters.map { URLQueryItem(name: $0.key, value: "\($0.value)") }
+				return requestBody.query?.data(using: .utf8)
+			}
+			
+			Logger.network.fault("\(RequestError.json)")
+		}
+		
+		return nil
+	}
+	
+	private func buildEncoding(with _request: RequestProtocol, in request: inout URLRequest) {
+		switch _request.encoding {
+		case .json:
+			request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+			request.httpBody = self.buildJSONBodyData(for: _request)
+			
+		case .custom(let encode, let body):
+			request.setValue(encode, forHTTPHeaderField: "Content-Type")
+			request.httpBody = body
+			
+		case .formURLEncoded:
+			request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+			request.httpBody = self.buildFormEncodedBodyData(for: _request)
+			
+		default:
+			break
+		}
 	}
 	
 	// MARK: - Response
@@ -104,18 +144,7 @@ class RequestManager {
 			request.setValue($0.value, forHTTPHeaderField: $0.key)
 		}
 		
-		switch _request.encoding {
-		case .json:
-			request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-			request.httpBody = self.buildJSONBodyData(for: _request)
-			
-		case .custom(let encode, let body):
-			request.setValue(encode, forHTTPHeaderField: "Content-Type")
-			request.httpBody = body
-			
-		default:
-			break
-		}
+		self.buildEncoding(with: _request, in: &request)
 		
 		Logger.network.debug("\(NetworkLogType.sending.rawValue) - \(_request.description)")
 		
