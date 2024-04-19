@@ -13,6 +13,10 @@ let package = Package(
 		.library(
 			name: "ToolsboxSDK_Network",
 			targets: [ "ToolsboxSDK_Network"]
+		),
+		.library(
+			name: "ToolsboxSDK_Core",
+			targets: [ "ToolsboxSDK_Core"]
 		)
 	],
 	dependencies: [
