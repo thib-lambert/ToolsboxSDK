@@ -8,7 +8,7 @@
 import Foundation
 import os
 
-extension Logger {
+internal extension Logger {
 	
 	static let data = Logger(subsystem: "ToolsboxSDK_Core", category: "Data")
 }
