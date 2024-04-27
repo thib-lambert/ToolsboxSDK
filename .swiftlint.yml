@@ -403,7 +403,7 @@ line_length:
     warning: 130
     ignores_urls: true
     ignores_function_declarations: false
-    ignores_comments: false
+    ignores_comments: true
     ignores_interpolated_strings: true
 
 literal_expression_end_indentation:
