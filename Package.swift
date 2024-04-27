@@ -17,6 +17,10 @@ let package = Package(
 		.library(
 			name: "ToolsboxSDK_Core",
 			targets: [ "ToolsboxSDK_Core"]
+		),
+		.library(
+			name: "ToolsboxSDK_UI",
+			targets: [ "ToolsboxSDK_UI"]
 		)
 	],
 	dependencies: [
@@ -38,6 +42,13 @@ let package = Package(
 				"ToolsboxSDK_Core"
 			],
 			resources: [.copy("Resources/PrivacyInfo.xcprivacy")],
+			plugins: [
+				.plugin(name: "SwiftLintPlugin", package: "SwiftLint")
+			]
+		),
+		.target(
+			name: "ToolsboxSDK_UI",
+			dependencies: [],
 			plugins: [
 				.plugin(name: "SwiftLintPlugin", package: "SwiftLint")
 			]
