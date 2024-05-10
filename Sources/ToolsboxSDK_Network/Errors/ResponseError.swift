@@ -7,12 +7,19 @@
 
 import Foundation
 
+/// Enum representing various response errors.
 enum ResponseError: LocalizedError {
 	
-	case data,
-		 unknow
+	/// Error case indicating a data error.
+	case data
+	
+	/// Error case indicating an unknown error in the response.
+	case unknow
+	
+	/// Error case indicating a network-related error in the response.
 	case network(response: HTTPURLResponse?, data: Data?)
 	
+	/// A localized description of the error.
 	var errorDescription: String? {
 		switch self {
 		case .data:
@@ -22,7 +29,7 @@ enum ResponseError: LocalizedError {
 			return "Response error"
 			
 		case .network(let response, _):
-			guard let statusCode = response?.statusCode else { return "Unkown Error" }
+			guard let statusCode = response?.statusCode else { return "Unknown Error" }
 			return "\(statusCode): \(HTTPURLResponse.localizedString(forStatusCode: statusCode))"
 		}
 	}
