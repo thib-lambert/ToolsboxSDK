@@ -8,11 +8,19 @@
 import Foundation
 import os
 
+/// Type representing HTTP request headers.
 public typealias RequestHeaders = [String: String]
+
+/// Type representing a network response, containing a status code and optional data.
 public typealias NetworkResponse = (statusCode: Int, data: Data?)
+
+/// Type representing request parameters.
 public typealias RequestParameters = [String: Any]
+
+/// Type representing an array of parameters.
 typealias ParametersArray = [(key: String, value: Any)]
 
+/// Class responsible for managing network requests.
 class RequestManager {
 	
 	// MARK: - Singleton
@@ -22,6 +30,24 @@ class RequestManager {
 	private init() { }
 	
 	// MARK: - Build
+	
+	/// Builds the URL for the given request.
+	///
+	/// - Parameter request: The request for which to build the URL.
+	/// - Returns: The URL constructed from the request parameters.
+	/// - Throws: An error if the URL cannot be constructed.
+	///
+	/// This method constructs a URL based on the parameters of the provided request. It sets the scheme, host, path, and port of the URL from the corresponding properties of the request. If the request encoding is URL-encoded, it appends the request parameters as query items to the URL. Additionally, it appends any URL query items specified by the request authentication. If the resulting URL is nil, it throws a URL construction error.
+	///
+	/// Example usage:
+	/// ```swift
+	/// do {
+	///     let url = try buildUrl(for: request)
+	///     // Use the constructed URL
+	/// } catch {
+	///     // Handle URL construction error
+	/// }
+	/// ```
 	private func buildUrl(for request: RequestProtocol) throws -> URL {
 		var components = URLComponents()
 		var finalUrlParameters: [URLQueryItem] = []
@@ -57,6 +83,18 @@ class RequestManager {
 		return url
 	}
 	
+	/// Builds the headers for the given request.
+	///
+	/// - Parameter request: The request for which to build the headers.
+	/// - Returns: The headers constructed from the request parameters.
+	///
+	/// This method constructs headers based on the parameters of the provided request. It combines authentication headers, if present, with custom headers specified by the request. If no custom headers are specified, it returns only the authentication headers. If no authentication headers are present, it returns an empty dictionary.
+	///
+	/// Example usage:
+	/// ```swift
+	/// let headers = buildHeaders(for: request)
+	/// // Use the constructed headers
+	/// ```
 	private func buildHeaders(for request: RequestProtocol) -> RequestHeaders {
 		var finalHeaders: RequestHeaders = request.authentification?.headers ?? [:]
 		
@@ -68,6 +106,19 @@ class RequestManager {
 		return finalHeaders
 	}
 	
+	/// Builds JSON body data for the given request.
+	///
+	/// - Parameter request: The request for which to build the JSON body data.
+	/// - Returns: The JSON body data constructed from the request parameters, or nil if no body data could be constructed.
+	///
+	/// This method constructs JSON body data based on the parameters of the provided request. It combines authentication body parameters, if present, with custom body parameters specified by the request. If no custom body parameters are specified, it returns only the authentication body parameters. If the resulting body parameters are not empty and can be serialized to JSON, it returns the JSON data. If serialization fails, it logs an error and returns nil.
+	///
+	/// Example usage:
+	/// ```swift
+	/// if let jsonData = buildJSONBodyData(for: request) {
+	///     // Use the constructed JSON body data
+	/// }
+	/// ```
 	private func buildJSONBodyData(for request: RequestProtocol) -> Data? {
 		var finalBodyParameters: RequestParameters = request.authentification?.bodyParameters ?? [:]
 		
@@ -132,6 +183,26 @@ class RequestManager {
 	}
 	
 	// MARK: - Response
+	
+	/// Asynchronously retrieves the network response for the given request.
+	///
+	/// - Parameters:
+	///   - _request: The request for which to retrieve the network response.
+	///   - retryAuthentification: A boolean value indicating whether to retry authentication if the response status code is 401.
+	/// - Returns: The network response, containing a status code and optional data.
+	/// - Throws: An error if the network response cannot be retrieved.
+	///
+	/// This method constructs and sends a URL request based on the provided request parameters. It logs the sending of the request and measures its execution time. If the response status code is in the success range (200-299), it logs the success and returns the response data. If the response status code is 401 (Unauthorized) and retry authentication is enabled, it attempts to refresh the authentication and retries the request. If the response status code is outside the success range and cannot be retried, it logs an error and throws an appropriate network error.
+	///
+	/// Example usage:
+	/// ```swift
+	/// do {
+	///     let response = try await response(for: request, retryAuthentification: true)
+	///     // Use the retrieved network response
+	/// } catch {
+	///     // Handle error
+	/// }
+	/// ```
 	func response(for _request: RequestProtocol, retryAuthentification: Bool) async throws -> NetworkResponse {
 		let url = try self.buildUrl(for: _request)
 		
@@ -196,6 +267,22 @@ class RequestManager {
 	}
 	
 	// MARK: - Helpers
+	
+	/// Creates a network error based on the provided request, response, and data.
+	///
+	/// - Parameters:
+	///   - request: The request associated with the network error.
+	///   - response: The HTTP URL response associated with the network error.
+	///   - data: The data associated with the network error.
+	/// - Returns: The network error.
+	///
+	/// This method creates a network error of type `.network` using the provided request, response, and data. It logs the error and returns it.
+	///
+	/// Example usage:
+	/// ```swift
+	/// let error = createNetworkError(request: request, response: response, data: data)
+	/// // Handle the created network error
+	/// ```
 	private func createNetworkError(request: RequestProtocol,
 									response: HTTPURLResponse,
 									data: Data?) -> ResponseError {
@@ -204,6 +291,24 @@ class RequestManager {
 		return error
 	}
 	
+	/// Asynchronously refreshes the authentication for the given request.
+	///
+	/// - Parameters:
+	///   - authentification: An array of objects conforming to the `RequestAuthRefreshableProtocol`, representing the authentication to refresh.
+	///   - request: The URL request for which to refresh the authentication.
+	/// - Throws: An error if authentication refresh fails.
+	///
+	/// This method asynchronously refreshes the authentication for the provided request using the first object in the array of refreshable authentication protocols. It then recursively refreshes authentication for the remaining objects in the array. If the array is empty, the method returns without performing any refresh operations.
+	///
+	/// Example usage:
+	/// ```swift
+	/// do {
+	///     try await refresh(authentification: authArray, request: request)
+	///     // Authentication refreshed successfully
+	/// } catch {
+	///     // Handle authentication refresh error
+	/// }
+	/// ```
 	private func refresh(authentification: [RequestAuthRefreshableProtocol],
 						 request: URLRequest) async throws {
 		guard let first = authentification.first
