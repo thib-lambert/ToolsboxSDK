@@ -8,7 +8,6 @@
 import Foundation
 import os
 
-/// An extension to provide decoding functionality for types conforming to `Decodable`.
 public extension Decodable {
 	
 	/// Decodes an instance of the conforming type from the given data.

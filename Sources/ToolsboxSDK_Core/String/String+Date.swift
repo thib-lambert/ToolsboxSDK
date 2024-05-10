@@ -7,7 +7,6 @@
 
 import Foundation
 
-/// An extension to provide date conversion functionality for `String` instances.
 public extension String {
 	
 	/// Converts the string to a `Date` instance using the specified date format.

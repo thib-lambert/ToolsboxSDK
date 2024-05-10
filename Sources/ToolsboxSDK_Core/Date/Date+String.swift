@@ -7,7 +7,6 @@
 
 import Foundation
 
-/// An extension to provide string conversion functionality for `Date` instances.
 public extension Date {
 	
 	/// Converts the date to a string representation using the specified date and time styles.

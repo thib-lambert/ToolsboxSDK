@@ -7,7 +7,6 @@
 
 import Foundation
 
-/// An extension to provide safe subscripting for collections.
 public extension Collection {
 	
 	/// Safely accesses the element at the specified index.

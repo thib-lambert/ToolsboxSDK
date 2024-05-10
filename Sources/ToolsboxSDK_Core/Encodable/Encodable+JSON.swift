@@ -7,7 +7,6 @@
 
 import Foundation
 
-/// An extension to provide JSON serialization functionality for types conforming to `Encodable`.
 public extension Encodable {
 	
 	/// Converts the conforming instance to a JSON dictionary.
