@@ -7,10 +7,18 @@
 
 import Foundation
 
+/// Enum representing various types of request parameters encoding.
 public enum RequestParamatersEncodingType {
 	
-	case json,
-		 url,
-		 formURLEncoded
+	/// Represents JSON encoding for request parameters.
+	case json
+	
+	/// Represents URL encoding for request parameters.
+	case url
+	
+	/// Represents x-www-form-urlencoded encoding for request parameters.
+	case formURLEncoded
+	
+	/// Represents custom encoding for request parameters.
 	case custom(encode: String, body: Data?)
 }

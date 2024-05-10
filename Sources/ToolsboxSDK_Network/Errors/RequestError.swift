@@ -9,15 +9,21 @@ import Foundation
 
 enum RequestError: LocalizedError {
 	
-	case url,
-		 json,
-		 emptyCache
+	/// Error case indicating an invalid URL.
+	case url
 	
+	/// Error case indicating invalid JSON data.
+	case json
+	
+	/// Error case indicating an empty cache.
+	case emptyCache
+	
+	/// A localized description of the error.
 	var errorDescription: String? {
 		switch self {
-		case .url: return "Invalid URL !"
-		case .json: return "Invalid JSON !"
-		case .emptyCache: return "Empty cache !"
+		case .url: return "Invalid URL!"
+		case .json: return "Invalid JSON!"
+		case .emptyCache: return "Empty cache!"
 		}
 	}
 }

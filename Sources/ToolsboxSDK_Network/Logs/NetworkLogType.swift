@@ -9,12 +9,22 @@ import Foundation
 
 enum NetworkLogType: String {
 	
+	/// Indicates a log message for sending data.
 	case sending
+	
+	/// Indicates a successful network operation.
 	case success
+	
+	/// Indicates a successful network operation with a warning.
 	case successWarning
-	case error
+	
+	/// Indicates a log message related to cached data.
 	case cache
 	
+	/// Indicates an error in a network operation.
+	case error
+	
+	/// The prefix associated with each log type.
 	var prefix: String {
 		switch self {
 		case .sending: return "➡️"
@@ -25,3 +35,4 @@ enum NetworkLogType: String {
 		}
 	}
 }
+

@@ -8,7 +8,6 @@
 import Foundation
 import UIKit
 
-/// A protocol for view controllers instantiated from storyboards.
 public protocol StoryboardProtocol: AnyObject {
 	
 	/// The name of the storyboard containing the view controller.
