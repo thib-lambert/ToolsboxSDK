@@ -28,7 +28,7 @@ public extension Sequence {
 			let key: U = key(element)
 			
 			if let values = partialResult[key] {
-				partialResult[key]?.append(element)
+				partialResult[key] = values + [element]
 			} else {
 				partialResult[key] = [element]
 			}
