@@ -55,4 +55,3 @@ extension Array: RequestAuthProtocol where Element == RequestAuthProtocol {
 		self.flatMap { $0.urlQueryItems }
 	}
 }
-
