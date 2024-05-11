@@ -21,6 +21,10 @@ let package = Package(
 		.library(
 			name: "ToolsboxSDK_UI",
 			targets: [ "ToolsboxSDK_UI"]
+		),
+		.library(
+			name: "ToolsboxSDK_Helpers",
+			targets: ["ToolsboxSDK_Helpers"]
 		)
 	],
 	targets: [
@@ -49,6 +53,12 @@ let package = Package(
 				.unsafeFlags(["-warnings-as-errors"])
 			]
 			
-		)
+		),
+		.target(
+			name: "ToolsboxSDK_Helpers",
+			swiftSettings: [
+				.unsafeFlags(["-warnings-as-errors"])
+			]
+		),
 	]
 )
