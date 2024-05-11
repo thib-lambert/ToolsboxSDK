@@ -25,7 +25,7 @@ jobs:
           run: brew install xcbeautify
         
         - name: Run SwiftLint
-          run: swiftlint lint --reporter github-actions-logging
+          run: swiftlint lint --strict --reporter github-actions-logging
 
         - name: Select Xcode version
           run: sudo xcode-select -switch /Applications/Xcode_15.3.app
