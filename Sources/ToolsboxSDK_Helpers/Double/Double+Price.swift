@@ -22,6 +22,22 @@ public extension Double {
 		Double(Int(self)) != self
 	}
 	
+	/// Formats the floating-point number as a price string.
+	///
+	/// - Parameters:
+	///   - currency: The currency symbol to display.
+	///   - currencyCode: The currency code to use for formatting.
+	///   - minimumFractionDigits: The minimum number of fractional digits to display.
+	///   - maximumFractionDigits: The maximum number of fractional digits to display.
+	/// - Returns: The formatted price string.
+	///
+	/// This method converts the floating-point number to a price string using the provided currency symbol or code and formatting options.
+	///
+	/// Example usage:
+	/// ```swift
+	/// let priceString = someDouble.toPrice(currency: "$", minimumFractionDigits: 2)
+	/// // Use the formatted price string
+	/// ```
 	func toPrice(currency: String? = nil,
 				 currencyCode: String? = nil,
 				 minimumFractionDigits: Int = 2,
@@ -45,8 +61,8 @@ public extension Double {
 				.displayName(forKey: .currencySymbol, value: currencyCode) ?? currency
 			
 			return self.toPrice(currency: _currency,
-						 minimumFractionDigits: minimumFractionDigits,
-						 maximumFractionDigits: maximumFractionDigits)
+								minimumFractionDigits: minimumFractionDigits,
+								maximumFractionDigits: maximumFractionDigits)
 		}
 		
 		numberFormatter.numberStyle = .currency
