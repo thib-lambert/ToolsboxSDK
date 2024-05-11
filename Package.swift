@@ -27,17 +27,28 @@ let package = Package(
 		// Targets are the basic building blocks of a package, defining a module or a test suite.
 		// Targets can depend on other targets in this package and products from dependencies.
 		.target(
-			name: "ToolsboxSDK_Core"
+			name: "ToolsboxSDK_Core",
+			swiftSettings: [
+				.unsafeFlags(["-warnings-as-errors"])
+			]
 		),
 		.target(
 			name: "ToolsboxSDK_Network",
 			dependencies: [
 				"ToolsboxSDK_Core"
 			],
-			resources: [.copy("Resources/PrivacyInfo.xcprivacy")]
+			resources: [.copy("Resources/PrivacyInfo.xcprivacy")],
+			swiftSettings: [
+				.unsafeFlags(["-warnings-as-errors"])
+			]
+			
 		),
 		.target(
-			name: "ToolsboxSDK_UI"
+			name: "ToolsboxSDK_UI",
+			swiftSettings: [
+				.unsafeFlags(["-warnings-as-errors"])
+			]
+			
 		)
 	]
 )
