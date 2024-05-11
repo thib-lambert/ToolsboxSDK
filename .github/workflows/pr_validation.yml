@@ -1,12 +1,16 @@
 name: PR Validation
 
 on:
+  schedule:
+    - cron: "0 */6 * * *"
+
   pull_request:
     branches:
       - develop
 
-  schedule:
-    - cron: "0 */6 * * *"
+  push:
+    branches:
+      - develop
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
