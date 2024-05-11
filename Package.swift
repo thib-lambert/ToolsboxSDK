@@ -23,35 +23,21 @@ let package = Package(
 			targets: [ "ToolsboxSDK_UI"]
 		)
 	],
-	dependencies: [
-		.package(url: "https://github.com/realm/SwiftLint.git", .upToNextMajor(from: "0.54.0"))
-	],
 	targets: [
 		// Targets are the basic building blocks of a package, defining a module or a test suite.
 		// Targets can depend on other targets in this package and products from dependencies.
 		.target(
-			name: "ToolsboxSDK_Core",
-			dependencies: [],
-			plugins: [
-				.plugin(name: "SwiftLintPlugin", package: "SwiftLint")
-			]
+			name: "ToolsboxSDK_Core"
 		),
 		.target(
 			name: "ToolsboxSDK_Network",
 			dependencies: [
 				"ToolsboxSDK_Core"
 			],
-			resources: [.copy("Resources/PrivacyInfo.xcprivacy")],
-			plugins: [
-				.plugin(name: "SwiftLintPlugin", package: "SwiftLint")
-			]
+			resources: [.copy("Resources/PrivacyInfo.xcprivacy")]
 		),
 		.target(
-			name: "ToolsboxSDK_UI",
-			dependencies: [],
-			plugins: [
-				.plugin(name: "SwiftLintPlugin", package: "SwiftLint")
-			]
+			name: "ToolsboxSDK_UI"
 		)
 	]
 )
