@@ -25,8 +25,7 @@ public extension URL {
 	/// }
 	/// ```
 	init?(_ string: String?) {
-		guard let string = string else { return nil }
+		guard let string else { return nil }
 		self.init(string: string)
 	}
-	
 }
