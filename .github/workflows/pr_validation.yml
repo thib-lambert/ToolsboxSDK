@@ -16,6 +16,17 @@ jobs:
   build:
     runs-on: macos-14
 
+    strategy:
+      matrix:
+        scheme:
+          [
+            "ToolsboxSDK-Package",
+            "ToolsboxSDK_Core",
+            "ToolsboxSDK_UI",
+            "ToolsboxSDK_Helpers",
+            "ToolsboxSDK_Network",
+          ]
+
     steps:
       - name: "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
         run: echo "OK"
@@ -38,5 +49,5 @@ jobs:
       - name: Select Xcode version
         run: sudo xcode-select -switch /Applications/Xcode_15.3.app
 
-      - name: Build ToolsboxSDK
-        run: set -o pipefail && xcodebuild -scheme ToolsboxSDK-Package -destination "generic/platform=iOS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO clean build | xcbeautify
+      - name: Build ToolsboxSDK with scheme "${{ matrix.scheme }}"
+        run: set -o pipefail && xcodebuild -scheme "${{ matrix.scheme }}" -destination "generic/platform=iOS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO clean build | xcbeautify
