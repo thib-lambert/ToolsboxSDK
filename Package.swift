@@ -2,6 +2,7 @@
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
+import Foundation
 
 let package = Package(
 	name: "ToolsboxSDK",
@@ -27,6 +28,9 @@ let package = Package(
 			targets: ["ToolsboxSDK_Helpers"]
 		)
 	],
+	dependencies: [
+		.package(url: "https://github.com/realm/SwiftLint.git", from: "0.55.0")
+	],
 	targets: [
 		// Targets are the basic building blocks of a package, defining a module or a test suite.
 		// Targets can depend on other targets in this package and products from dependencies.
@@ -44,21 +48,22 @@ let package = Package(
 			resources: [.copy("Resources/PrivacyInfo.xcprivacy")],
 			swiftSettings: [
 				.unsafeFlags(["-warnings-as-errors"])
-			]
-			
+			],
+			plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
 		),
 		.target(
 			name: "ToolsboxSDK_UI",
 			swiftSettings: [
 				.unsafeFlags(["-warnings-as-errors"])
-			]
-			
+			],
+			plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
 		),
 		.target(
 			name: "ToolsboxSDK_Helpers",
 			swiftSettings: [
 				.unsafeFlags(["-warnings-as-errors"])
-			]
+			],
+			plugins: [.plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")]
 		),
 	]
 )
