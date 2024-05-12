@@ -50,4 +50,4 @@ jobs:
         run: sudo xcode-select -switch /Applications/Xcode_15.3.app
 
       - name: Build ToolsboxSDK with scheme "${{ matrix.scheme }}"
-        run: set -o pipefail && xcodebuild -scheme "${{ matrix.scheme }}" -destination "generic/platform=iOS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO clean build | xcbeautify
+        run: set -o pipefail && xcodebuild -scheme "${{ matrix.scheme }}" -destination "generic/platform=iOS" CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO -skipPackagePluginValidation -skipMacroValidation clean build | xcbeautify
