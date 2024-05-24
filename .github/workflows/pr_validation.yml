@@ -2,7 +2,7 @@ name: PR Validation
 
 on:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "0 */24 * * *"
 
   pull_request:
     types: [opened, synchronize]
