@@ -18,11 +18,11 @@ public extension Int {
 	///   - maximumFractionDigits: The maximum number of fractional digits to display.
 	/// - Returns: The formatted price string.
 	///
-	/// This method converts the floating-point number to a price string using the provided currency symbol or code and formatting options.
+	/// This method converts the integer number to a price string using the provided currency symbol or code and formatting options.
 	///
 	/// Example usage:
 	/// ```swift
-	/// let priceString = someDouble.toPrice(currency: "$", minimumFractionDigits: 2)
+	/// let priceString = someInt.toPrice(currency: "$", minimumFractionDigits: 2)
 	/// // Use the formatted price string
 	/// ```
 	func toPrice(currency: String? = nil,
