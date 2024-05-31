@@ -18,7 +18,7 @@ public extension Double {
 	/// let isDecimal = someDouble.isDecimal
 	/// // Use the result to determine if the double is a decimal
 	/// ```
-	private var isDecimal: Bool {
+	var isDecimal: Bool {
 		Double(Int(self)) != self
 	}
 	
