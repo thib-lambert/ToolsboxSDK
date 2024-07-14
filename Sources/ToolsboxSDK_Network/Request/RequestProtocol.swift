@@ -51,7 +51,7 @@ public protocol RequestProtocol: CustomStringConvertible {
 }
 
 // MARK: - Default values
-extension RequestProtocol {
+public extension RequestProtocol {
 	
 	/// A textual representation of the request.
 	var description: String {
