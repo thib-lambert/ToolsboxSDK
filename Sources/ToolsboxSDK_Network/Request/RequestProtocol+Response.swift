@@ -32,18 +32,18 @@ public extension RequestProtocol {
 			switch cacheKey.type {
 			case .returnCacheDataElseLoad:
 				if let data = NetworkCache.shared.get(cacheKey) {
-					Logger.network.debug("\(NetworkLogType.cache.rawValue) - \(self) with key \(cacheKey.key)")
+					Logger.network.debug("\(NetworkLogType.cache.prefix) - \(self) with key \(cacheKey.key)")
 					return (statusCode: 200, data: data)
 				}
 				
 			case .returnCacheDataDontLoad:
 				if let data = NetworkCache.shared.get(cacheKey) {
-					Logger.network.debug("\(NetworkLogType.cache.rawValue) - \(self) with key \(cacheKey.key)")
+					Logger.network.debug("\(NetworkLogType.cache.prefix) - \(self) with key \(cacheKey.key)")
 					return (statusCode: 200, data: data)
 				}
 				
 				let error: RequestError = .emptyCache
-				Logger.network.fault("\(NetworkLogType.cache.rawValue) - \(self) with key \(cacheKey.key) with error \(error)")
+				Logger.network.fault("\(NetworkLogType.cache.prefix) - \(self) with key \(cacheKey.key) with error \(error)")
 				throw error
 			}
 		}
@@ -60,7 +60,7 @@ public extension RequestProtocol {
 		} catch {
 			if let cacheKey,
 			   let data = NetworkCache.shared.get(cacheKey) {
-				Logger.network.debug("\(NetworkLogType.cache.rawValue) \(self) with key \(cacheKey.key)")
+				Logger.network.debug("\(NetworkLogType.cache.prefix) \(self) with key \(cacheKey.key)")
 				return (statusCode: 200, data: data)
 			}
 			
@@ -94,7 +94,7 @@ public extension RequestProtocol {
 		do {
 			return try T.decode(from: data)
 		} catch {
-			Logger.network.fault("\(NetworkLogType.error.rawValue) \(error.localizedDescription)")
+			Logger.network.fault("\(NetworkLogType.error.prefix) \(error.localizedDescription)")
 			throw error
 		}
 	}

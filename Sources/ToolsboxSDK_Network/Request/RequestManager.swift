@@ -217,7 +217,7 @@ class RequestManager {
 		
 		self.buildEncoding(with: _request, in: &request)
 		
-		Logger.network.debug("\(NetworkLogType.sending.rawValue) - \(_request.description)")
+		Logger.network.debug("\(NetworkLogType.sending.prefix) - \(_request.description)")
 		
 		let startDate = Date()
 		let session = URLSession(configuration: .default)
@@ -231,9 +231,9 @@ class RequestManager {
 		
 		if response.statusCode >= 200 && response.statusCode < 300 {
 			if executionTime > _request.warningTime {
-				Logger.network.debug("\(NetworkLogType.successWarning.rawValue) - \(requestId)")
+				Logger.network.debug("\(NetworkLogType.successWarning.prefix) - \(requestId)")
 			} else {
-				Logger.network.debug("\(NetworkLogType.success.rawValue) - \(requestId)")
+				Logger.network.debug("\(NetworkLogType.success.prefix) - \(requestId)")
 			}
 			
 			return (response.statusCode, data)
@@ -287,7 +287,7 @@ class RequestManager {
 									response: HTTPURLResponse,
 									data: Data?) -> ResponseError {
 		let error: ResponseError = .network(response: response, data: data)
-		Logger.network.fault("\(NetworkLogType.error.rawValue) - \(request.description) 🛑 \(error.errorDescription ?? "")")
+		Logger.network.fault("\(NetworkLogType.error.prefix) - \(request.description) 🛑 \(error.errorDescription ?? "")")
 		return error
 	}
 	
