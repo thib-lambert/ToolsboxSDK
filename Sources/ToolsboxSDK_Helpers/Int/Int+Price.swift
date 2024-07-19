@@ -9,7 +9,7 @@ import Foundation
 
 public extension Int {
 	
-	/// Formats the floating-point number as a price string.
+	/// Converts the `Int` value as a price string.
 	///
 	/// - Parameters:
 	///   - currency: The currency symbol to display.

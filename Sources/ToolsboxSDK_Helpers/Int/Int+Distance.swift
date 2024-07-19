@@ -9,7 +9,7 @@ import Foundation
 
 public extension Int {
 	
-	/// Converts the `Double` value to a localized distance string representation.
+	/// Converts the `Int` value to a localized distance string representation.
 	///
 	/// - Parameters:
 	///   - minimumFractionDigits: The minimum number of fractional digits to display. Default is 0.
