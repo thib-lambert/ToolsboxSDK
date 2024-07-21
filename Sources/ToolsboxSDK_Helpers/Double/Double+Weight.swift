@@ -12,25 +12,21 @@ public extension Double {
 	/// Converts a weight value in kilograms to a formatted string based on the provided parameters.
 	///
 	/// - Parameters:
-	///   - minimumFractionDigits: The minimum number of fractional digits to display. Default is 0.
-	///   - maximumFractionDigits: The maximum number of fractional digits to display. Default is 0.
-	///   - locale: The locale to use for formatting. Default is the current locale.
+	///   - minimumFractionDigits: The minimum number of fractional digits to display. Default is 2.
+	///   - maximumFractionDigits: The maximum number of fractional digits to display. Default is 2.
 	/// - Returns: A formatted string representing the weight.
-	func toWeight(minimumFractionDigits: Int = 0,
-				  maximumFractionDigits: Int = 0,
-				  locale: Locale = Locale.current) -> String {
-		// Create a number formatter to manage the fractional digits and locale.
-		let nbFormatter = NumberFormatter()
-		nbFormatter.locale = locale
-		nbFormatter.minimumFractionDigits = minimumFractionDigits
-		nbFormatter.maximumFractionDigits = maximumFractionDigits
+	func toWeight(minimumFractionDigits: Int = 2,
+				  maximumFractionDigits: Int = 2) -> String {
+		let numberFormatter = NumberFormatter()
+		numberFormatter.minimumFractionDigits = minimumFractionDigits
+		numberFormatter.maximumFractionDigits = minimumFractionDigits > maximumFractionDigits
+		? minimumFractionDigits
+		: maximumFractionDigits
 		
-		// Create a mass formatter to convert the weight to a string.
 		let formatter = MassFormatter()
 		formatter.unitStyle = .short
-		formatter.numberFormatter = nbFormatter
+		formatter.numberFormatter = numberFormatter
 		
-		// Return the formatted weight string.
-		return formatter.string(fromKilograms: self)
+		return formatter.string(fromValue: self, unit: .kilogram)
 	}
 }

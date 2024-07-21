@@ -26,12 +26,10 @@ public extension Int {
 	/// // Use the formatted price string
 	/// ```
 	func toPrice(currency: String? = nil,
-				 currencyCode: String? = nil,
-				 minimumFractionDigits: Int = 2,
-				 maximumFractionDigits: Int = 2) -> String {
+				 currencyCode: String? = nil) -> String {
 		Double(self).toPrice(currency: currency,
 							 currencyCode: currencyCode,
-							 minimumFractionDigits: minimumFractionDigits,
-							 maximumFractionDigits: maximumFractionDigits)
+							 minimumFractionDigits: 0,
+							 maximumFractionDigits: 0)
 	}
 }

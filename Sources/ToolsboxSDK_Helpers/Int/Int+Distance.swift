@@ -29,11 +29,9 @@ public extension Int {
 	/// let formattedDistanceFR = distance.toDistance(minimumFractionDigits: 0, maximumFractionDigits: 1, locale: frLocale)
 	/// print(formattedDistanceFR) // "1,2 km"
 	/// ```
-	func toDistance(minimumFractionDigits: Int = 0,
-					maximumFractionDigits: Int = 0,
-					locale: Locale = Locale.current) -> String {
-		Double(self).toDistance(minimumFractionDigits: minimumFractionDigits,
-								maximumFractionDigits: maximumFractionDigits,
+	func toDistance(locale: Locale = Locale.current) -> String {
+		Double(self).toDistance(minimumFractionDigits: 0,
+								maximumFractionDigits: 0,
 								locale: locale)
 	}
 }
