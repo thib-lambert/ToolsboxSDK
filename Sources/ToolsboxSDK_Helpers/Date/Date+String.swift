@@ -47,10 +47,10 @@ public extension Date {
 	/// Example usage:
 	/// ```swift
 	/// let currentDate = Date()
-	/// let dateString = currentDate.toString(format: "yyyy-MM-dd HH:mm:ss")
-	/// print(dateString) // Output: "2024-04-27 15:51:00"
+	/// let dateString = currentDate.toString()
+	/// print(dateString) // Output: "2024-04-27 15:51:00 +0000"
 	/// ```
-	func toString(format: String,
+	func toString(format: String = "yyyy-MM-dd'T'HH:mm:ssZ",
 				  locale: Locale = Locale.current) -> String {
 		let formatter = DateFormatter()
 		formatter.locale = locale
