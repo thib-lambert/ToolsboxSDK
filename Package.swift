@@ -39,6 +39,10 @@ let package = Package(
 			],
 			resources: [.copy("Resources/PrivacyInfo.xcprivacy")]),
 		.target(name: "ToolsboxSDK_UI"),
-		.target(name: "ToolsboxSDK_Helpers")
+		.target(name: "ToolsboxSDK_Helpers"),
+		
+		// Tests
+		.testTarget(name: "ToolboxSDK_Helpers_Tests",
+				   dependencies: ["ToolsboxSDK_Helpers"])
 	]
 )

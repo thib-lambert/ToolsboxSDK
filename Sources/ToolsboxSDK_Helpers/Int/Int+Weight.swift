@@ -14,13 +14,9 @@ public extension Int {
 	/// - Parameters:
 	///   - minimumFractionDigits: The minimum number of fractional digits to display. Default is 0.
 	///   - maximumFractionDigits: The maximum number of fractional digits to display. Default is 0.
-	///   - locale: The locale to use for formatting. Default is the current locale.
 	/// - Returns: A formatted string representing the weight.
-	func toWeight(minimumFractionDigits: Int = 0,
-				  maximumFractionDigits: Int = 0,
-				  locale: Locale = Locale.current) -> String {
-		Double(self).toWeight(minimumFractionDigits: minimumFractionDigits,
-							  maximumFractionDigits: maximumFractionDigits,
-							  locale: locale)
+	func toWeight() -> String {
+		Double(self).toWeight(minimumFractionDigits: 0,
+							  maximumFractionDigits: 0)
 	}
 }

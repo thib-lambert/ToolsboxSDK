@@ -30,16 +30,17 @@ public extension Double {
 				 minimumFractionDigits: Int = 2,
 				 maximumFractionDigits: Int = 2) -> String {
 		let numberFormatter = NumberFormatter()
-		numberFormatter.minimumFractionDigits = self.isDecimal ? minimumFractionDigits : 0
-		numberFormatter.maximumFractionDigits = maximumFractionDigits
+		numberFormatter.minimumFractionDigits = minimumFractionDigits
+		numberFormatter.maximumFractionDigits = minimumFractionDigits > maximumFractionDigits
+		? minimumFractionDigits
+		: maximumFractionDigits
 		
 		if let currency {
 			numberFormatter.numberStyle = .decimal
 			
 			// swiftlint:disable:next legacy_objc_type
-			if let price = numberFormatter.string(from: NSNumber(value: self)) {
-				return "\(price) \(currency)"
-			}
+			let price = numberFormatter.string(from: NSNumber(value: self)).unsafelyUnwrapped
+			return "\(price) \(currency)"
 		}
 		
 		if let currencyCode {
@@ -55,6 +56,6 @@ public extension Double {
 		numberFormatter.numberStyle = .currency
 		
 		// swiftlint:disable:next legacy_objc_type
-		return numberFormatter.string(from: NSNumber(value: self)) ?? ""
+		return numberFormatter.string(from: NSNumber(value: self)).unsafelyUnwrapped
 	}
 }
